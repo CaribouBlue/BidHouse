@@ -2,6 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
+  Redirect,
 } from 'react-router-dom';
 // components
 import MenuBar from './MenuBar';
@@ -16,8 +17,18 @@ export default class App extends React.Component {
       >
         <div>
           <MenuBar />
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
+          <Route
+            exact
+            path="/app/"
+            render={() =>
+              (window.location.hash ? (
+                <Redirect to={`/app/${window.location.hash.slice(1)}`} />
+              ) : (
+                <Home />
+              ))
+            }
+          />
+          <Route path="/app/about" component={About} />
         </div>
       </Router>
     );

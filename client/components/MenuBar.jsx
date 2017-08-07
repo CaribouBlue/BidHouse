@@ -5,7 +5,7 @@ import {
 
 export default () => (
   <div>
-    <Link to="/" >Home</Link>
-    <Link to="/about" >About</Link>
+    <Link to="/app" >Home</Link>
+    <Link to="/app/about" >About</Link>
   </div>
 );
