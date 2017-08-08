@@ -1,6 +1,8 @@
 import React from 'react';
 import io from 'socket.io-client';
 import AlertContainer from 'react-alert';
+import axios from 'axios';
+import formatBid from '../lib/formatBid';
 
 export default class Auction extends React.Component {
   constructor(props) {
@@ -8,27 +10,68 @@ export default class Auction extends React.Component {
 
     this.state = {
       bid: '$',
-      bids: ['$10'],
+      bids: [],
+      highest: { amount: 'None' },
     };
+
+    /*===============================
+    =            sockets            =
+    ===============================*/
 
     this.socket = io();
 
-    this.socket.on('bid submit', (bid) => {
+    this.socket.on('bid submit', (bidObj) => {
       const bids = this.state.bids.slice();
-      bids.push(this.formatBid(bid));
+      bidObj.amount = formatBid(bidObj.amount);
+      bids.push(bidObj);
       this.setState({ bids });
+      this.setHighest();
     });
 
-    this.alertOptions = {
-      offset: 14,
-      position: 'top left',
-      theme: 'dark',
-      time: 5000,
-      transition: 'scale',
-    };
+    /*=====  End of sockets  ======*/
+
 
     this.submitBid = this.submitBid.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+
+  componentWillMount() {
+    this.getBids();
+  }
+
+  getBids() {
+    axios.get('/api/bids')
+      .then(({ data }) => {
+        const bids = data.map(bidModel => ({
+          amount: formatBid(`${bidModel.amount}`),
+          id: bidModel._id,
+        }));
+        this.setState({ bids });
+        this.setHighest();
+      });
+  }
+
+  setHighest() {
+    const highest = this.state.bids.reduce((max, bidObj) => {
+      return formatBid(max.amount, 'num') >= formatBid(bidObj.amount, 'num') ? max : bidObj;
+    });
+    this.setState({ highest });
+  }
+
+
+  handleChange({ target }) {
+    const bid = formatBid(target.value);
+    this.setState({ bid });
+  }
+
+  submitBid(e) {
+    e.preventDefault();
+    this.socket.emit('bid submit', {
+      amount: formatBid(this.state.bid, 'num'),
+    });
+    this.setState({ bid: '$' });
+    this.showAlert('Bid Placed!');
   }
 
   showAlert(text) {
@@ -38,39 +81,13 @@ export default class Auction extends React.Component {
     });
   }
 
-  submitBid(e) {
-    e.preventDefault();
-    this.socket.emit('bid submit', this.state.bid.replace(/[^0-9]/g, ''));
-    this.setState({ bid: '$' });
-    this.showAlert('Bid Placed!');
-  }
-
-  handleChange({ target }) {
-    const bid = this.formatBid(target.value);
-    this.setState({ bid });
-  }
-
-  formatBid(bid) {
-    let counter = 0;
-    return `$${
-      bid
-        .replace(/[^0-9]/g, '')
-        .split('')
-        .reduceRight((str, num) => {
-          const val = counter % 3 === 0 && counter !== 0 ?
-            `${num},${str}`
-            : `${num}${str}`;
-          counter += 1;
-          return val;
-        }, '')
-    }`;
-  }
 
   render() {
     return (
       <div>
-        <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
-        <h1>Auction: {this.props.name}</h1>
+        <AlertContainer ref={a => this.msg = a} />
+        <h1>Auction: {this.props.room}</h1>
+        <h3>Current Highest Bid: {this.state.highest.amount}</h3>
         <form
           onSubmit={this.submitBid}
         >
@@ -86,15 +103,17 @@ export default class Auction extends React.Component {
             Submit
           </button>
         </form>
-        <pre>{this.state.bids}</pre>
-        {this.state.bids.map(bid => (
+        <h4>Bid History</h4>
+        {this.state.bids.map((bid, i) => (
           <p
-            key={bid}
+            key={bid.id || i}
           >
-            {bid}
+            {bid.amount || bid}
           </p>
         ))}
+        <pre>{console.log(this.state)}</pre>
       </div>
     );
   }
 }
+

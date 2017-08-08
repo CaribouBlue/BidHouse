@@ -1,5 +1,5 @@
 const q = require('../queryHandlers/queryHandlers');
 
-exports.bidSubmit = (bid) => {
-  q.storeBid(bid);
+exports.bidSubmit = (bidObj) => {
+  q.storeBid(bidObj);
 };

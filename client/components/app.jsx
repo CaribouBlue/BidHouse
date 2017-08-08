@@ -25,13 +25,20 @@ export default class App extends React.Component {
               (window.location.hash ? (
                 <Redirect to={`/app/${window.location.hash.slice(1)}`} />
               ) : (
-                <Auction
-                  name="rooms"
-                />
+                <Home />
               ))
             }
           />
-          <Route path="/app/about" component={About} />
+          <Route
+            path="/app/about"
+            component={About}
+          />
+          <Route
+            path="/app/auction"
+            render={() => (
+              <Auction room="room1" />
+            )}
+          />
         </div>
       </Router>
     );
