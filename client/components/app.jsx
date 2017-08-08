@@ -8,6 +8,7 @@ import {
 import MenuBar from './MenuBar';
 import Home from './Home';
 import About from './About';
+import Auction from './Auction';
 
 export default class App extends React.Component {
   render() {
@@ -24,7 +25,9 @@ export default class App extends React.Component {
               (window.location.hash ? (
                 <Redirect to={`/app/${window.location.hash.slice(1)}`} />
               ) : (
-                <Home />
+                <Auction
+                  name="rooms"
+                />
               ))
             }
           />
