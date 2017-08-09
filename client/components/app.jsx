@@ -25,9 +25,13 @@ export default class App extends React.Component {
               (window.location.hash ? (
                 <Redirect to={`/app/${window.location.hash.slice(1)}`} />
               ) : (
-                <Home />
+                <Redirect to={'/app/home'} />
               ))
             }
+          />
+          <Route
+            path="/app/home"
+            component={Home}
           />
           <Route
             path="/app/about"

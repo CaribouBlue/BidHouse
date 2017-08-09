@@ -1,12 +1,9 @@
-const {
-  Schema,
-  model,
-} = require('mongoose');
+const mongoose = require('mongoose');
 
-const RoomSchema = Schema({
-  owner_id: Schema.Types.ObjectId,
-  bidder_ids: [Schema.Types.ObjectId],
+const RoomSchema = mongoose.mongoose.Schema({
+  owner_id: mongoose.Schema.Types.ObjectId,
+  bidder_ids: [mongoose.Schema.Types.ObjectId],
   name: String,
 });
 
-module.exports = model('Room', RoomSchema);
+module.exports = mongoose.model('Room', RoomSchema);
