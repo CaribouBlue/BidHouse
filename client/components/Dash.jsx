@@ -69,6 +69,7 @@ export default class Dash extends React.Component {
     axios.post('/api/auctions', this.state.newAuction)
       .then((res) => {
         console.log(res);
+        this.setState({ creatingAuction: false });
       });
   }
 

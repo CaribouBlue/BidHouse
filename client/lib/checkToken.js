@@ -10,5 +10,5 @@ exports.checkVerified = () => {
 
 exports.getUser = () => {
   const authObj = JSON.parse(localStorage.getItem('auctionHouse'));
-  return authObj.user;
+  return authObj ? authObj.user : null;
 };

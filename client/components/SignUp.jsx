@@ -31,7 +31,12 @@ export default class SignUp extends React.Component {
         password: this.state.password,
       })
         .then((res) => {
-          console.log(res);
+          alert(res.data);
+          if (res.data === 'signed up') {
+            this.props.history.push(
+              '/app/home/login'
+            )
+          }
         })
         .catch(console.error.bind(console));
     }
