@@ -3,7 +3,7 @@ import {
   Link,
 } from 'react-router-dom';
 
-export default () => (
+export default props => (
   <div>
     <Link to="/app" >Home</Link>
     <Link to="/app/about" >About</Link>
@@ -11,6 +11,7 @@ export default () => (
     <button
       onClick={() => {
         localStorage.removeItem('auctionHouse');
+        props.history.push('/app');
       }}
     >Logout</button>
   </div>

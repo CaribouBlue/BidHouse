@@ -18,4 +18,7 @@ router.get('/login', passport.authenticate(
     session: false,
   }), serialize, generateToken, respond);
 
+router.get('/auctions', r.getAuctions);
+router.post('/auctions', r.createAuction);
+
 module.exports = router;

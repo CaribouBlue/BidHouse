@@ -42,3 +42,17 @@ exports.login = (req, res) => {
         ));
     });
 };
+
+exports.getAuctions = (req, res) => {
+  q.findAuctions({})
+    .then(auctions => res.send(auctions));
+};
+
+exports.createAuction = (req, res) => {
+  console.log(req.body);
+  const name = req.body.name || 'MyAuction';
+  const minBid = req.body.minBid;
+  const owner = req.body.user;
+  q.createAuction({ name, minBid, owner });
+  res.send('auction created');
+};

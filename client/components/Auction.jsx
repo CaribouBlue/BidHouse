@@ -1,14 +1,20 @@
 import React from 'react';
 import io from 'socket.io-client';
 import AlertContainer from 'react-alert';
-import axios from 'axios';
+// import axios from 'axios';
 import formatBid from '../lib/formatBid';
+import { checkVerified, getUser } from '../lib/checkToken';
 
 export default class Auction extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      id: '',
+      name: '',
+      owner: '',
+      minBid: 0,
+      user: getUser(),
       bid: '$',
       bids: [],
       highest: { amount: 'None' },
@@ -21,9 +27,10 @@ export default class Auction extends React.Component {
     this.socket = io();
 
     this.socket.on('bid submit', (bidObj) => {
+      if (bidObj.id !== this.state.id) return;
       const bids = this.state.bids.slice();
-      bidObj.amount = formatBid(bidObj.amount);
-      bids.push(bidObj);
+      const newBid = bidObj;
+      bids.push(newBid);
       this.setState({ bids });
       this.setHighest();
     });
@@ -33,32 +40,40 @@ export default class Auction extends React.Component {
 
     this.submitBid = this.submitBid.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.setHighest = this.setHighest.bind(this);
   }
-
 
   componentWillMount() {
-    this.getBids();
+    this.checkAuth();
   }
 
-  getBids() {
-    axios.get('/api/bids')
-      .then(({ data }) => {
-        const bids = data.map(bidModel => ({
-          amount: formatBid(`${bidModel.amount}`),
-          id: bidModel._id,
-        }));
-        this.setState({ bids });
-        this.setHighest();
-      });
+  setStateFromLocation() {
+    const state = this.props.location.state;
+    this.setState({
+      name: state.name,
+      owner: state.owner,
+      minBid: state.minBid,
+      id: state.id,
+      bids: state.bids,
+    }, () => {
+      if (this.state.bids.length > 0) this.setHighest();
+    });
   }
 
   setHighest() {
-    const highest = this.state.bids.reduce((max, bidObj) => {
-      return formatBid(max.amount, 'num') >= formatBid(bidObj.amount, 'num') ? max : bidObj;
-    });
+    const highest = this.state.bids.reduce((max, bidObj) =>
+      (max.amount >= bidObj.amount ? max : bidObj),
+    );
     this.setState({ highest });
   }
 
+  checkAuth() {
+    const verified = checkVerified();
+    if (!verified) this.props.history.push('/app/home/login');
+    else {
+      this.setStateFromLocation();
+    }
+  }
 
   handleChange({ target }) {
     const bid = formatBid(target.value);
@@ -67,18 +82,29 @@ export default class Auction extends React.Component {
 
   submitBid(e) {
     e.preventDefault();
+    const bid = formatBid(this.state.bid, 'num');
+    const min = this.state.minBid;
+    if (bid < min) {
+      this.showAlert(`Your bid is below the minimum (${formatBid(min)})`, {
+        time: 2000,
+        type: 'error',
+      });
+      return;
+    }
     this.socket.emit('bid submit', {
-      amount: formatBid(this.state.bid, 'num'),
+      amount: bid,
+      id: this.state.id,
+      user: this.state.user,
     });
     this.setState({ bid: '$' });
-    this.showAlert('Bid Placed!');
-  }
-
-  showAlert(text) {
-    this.msg.show(text, {
+    this.showAlert('Bid Placed!', {
       time: 2000,
       type: 'success',
     });
+  }
+
+  showAlert(text, options) {
+    this.msg.show(text, options);
   }
 
 
@@ -86,8 +112,11 @@ export default class Auction extends React.Component {
     return (
       <div>
         <AlertContainer ref={a => this.msg = a} />
-        <h1>Auction: {this.props.room}</h1>
-        <h3>Current Highest Bid: {this.state.highest.amount}</h3>
+        <h1>Auction: {this.state.name}</h1>
+        <h3>Current Highest Bid:
+          {`${formatBid(this.state.highest.amount)} - ${this.state.highest.user}`}
+        </h3>
+        <h5>{`Minimum Bid: ${formatBid(this.state.minBid)}`}</h5>
         <form
           onSubmit={this.submitBid}
         >
@@ -106,12 +135,12 @@ export default class Auction extends React.Component {
         <h4>Bid History</h4>
         {this.state.bids.map((bid, i) => (
           <p
-            key={bid.id || i}
+            key={i}
           >
-            {bid.amount || bid}
+            {formatBid(bid.amount)}
+            - {bid.user}
           </p>
         ))}
-        <pre>{console.log(this.state)}</pre>
       </div>
     );
   }

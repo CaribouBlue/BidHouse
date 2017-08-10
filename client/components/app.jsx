@@ -9,6 +9,7 @@ import MenuBar from './MenuBar';
 import Home from './Home';
 import About from './About';
 import Auction from './Auction';
+import Dash from './Dash';
 
 export default class App extends React.Component {
   render() {
@@ -17,7 +18,10 @@ export default class App extends React.Component {
         forceRefresh={false}
       >
         <div>
-          <MenuBar />
+          <Route
+            path="/app/"
+            component={MenuBar}
+          />
           <Route
             exact
             path="/app/"
@@ -39,9 +43,11 @@ export default class App extends React.Component {
           />
           <Route
             path="/app/auction"
-            render={() => (
-              <Auction room="room1" />
-            )}
+            component={Auction}
+          />
+          <Route
+            path="/app/dash"
+            component={Dash}
           />
         </div>
       </Router>

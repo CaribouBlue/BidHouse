@@ -7,3 +7,8 @@ exports.checkVerified = () => {
   if (verified) return true;
   return false;
 };
+
+exports.getUser = () => {
+  const authObj = JSON.parse(localStorage.getItem('auctionHouse'));
+  return authObj.user;
+};

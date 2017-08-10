@@ -13,10 +13,6 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      verified: false,
-    };
-
     this.checkAuth = this.checkAuth.bind(this);
   }
 
@@ -25,16 +21,12 @@ export default class Home extends React.Component {
   }
 
   checkAuth() {
-    console.log('checking auth ...');
-    console.log('current state: ', this.state);
     const verified = checkVerified();
-    console.log('verified: ', verified);
     if (verified) {
-      // this.props.history.push('/app/home/dash');
-    } else {
-      // this.props.history.push('/app/home/login');
+      this.props.history.push('/app/dash');
+    } else if (this.props.location.pathname !== '/app/home/login' && this.props.location.pathname !== '/app/home/signup') {
+      this.props.history.push('/app/home/login');
     }
-    this.setState({ verified });
   }
 
   render() {
@@ -44,18 +36,14 @@ export default class Home extends React.Component {
           <h1>WELCOME TO AUCTION HOUSE</h1>
           <Route
             path="/app/home/login"
-            render={context => (<Login
+            render={props => (<Login
               checkAuth={this.checkAuth}
-              history={context.history}
+              history={props.history}
             />)}
           />
           <Route
             path="/app/home/signup"
             component={SignUp}
-          />
-          <Route
-            path="/app/home/dash"
-            component={Dash}
           />
         </div>
       </Router>

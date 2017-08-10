@@ -30,8 +30,8 @@ export default class Login extends React.Component {
     })
       .then((res) => {
         localStorage.setItem('auctionHouse', JSON.stringify(res.data));
-        // this.props.checkAuth();
-        this.props.history.push('/app/home');
+        this.props.history.push('/app/home/dash');
+        this.props.checkAuth();
       })
       .catch(console.error.bind(console));
   }
