@@ -21,4 +21,6 @@ router.get('/login', passport.authenticate(
 router.get('/auctions', r.getAuctions);
 router.post('/auctions', r.createAuction);
 
+router.post('/auction/delete', r.deleteAuction)
+
 module.exports = router;

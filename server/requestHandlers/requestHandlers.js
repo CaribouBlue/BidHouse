@@ -48,11 +48,26 @@ exports.getAuctions = (req, res) => {
     .then(auctions => res.send(auctions));
 };
 
+function getEnd(start, length) {
+  const lengthArr = length.split(':');
+  let hours = Number(lengthArr[0]);
+  hours += Number(lengthArr[1]) / 60;
+  hours *= 3600000;
+  return start + hours;
+}
+
 exports.createAuction = (req, res) => {
-  console.log(req.body);
   const name = req.body.name || 'MyAuction';
   const minBid = req.body.minBid;
   const owner = req.body.user;
-  q.createAuction({ name, minBid, owner });
+  const start = Date.now();
+  const end = getEnd(start, req.body.length);
+  q.createAuction({ name, minBid, owner, start, end });
   res.send('auction created');
 };
+
+exports.deleteAuction = (req, res) => {
+  q.removeAuction({ _id: req.body.id })
+    .then(() => res.send('deleted'));
+};
+

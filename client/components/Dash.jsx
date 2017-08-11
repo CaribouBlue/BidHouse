@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import io from 'socket.io-client';
 import AuctionList from './AuctionList';
 import { getUser } from '../lib/checkToken';
 import formatBid from '../lib/formatBid';
+import formatTime from '../lib/formatTime';
 
 export default class Dash extends React.Component {
   constructor(props) {
@@ -14,8 +16,17 @@ export default class Dash extends React.Component {
         user: getUser(),
         name: '',
         minBid: 0,
+        length: '00:00',
       },
     };
+
+    /*===============================
+    =            sockets            =
+    ===============================*/
+
+    this.socket = io();
+
+    /*=====  End of sockets  ======*/
 
     this.handleChange = this.handleChange.bind(this);
     this.getNewAuctionForm = this.getNewAuctionForm.bind(this);
@@ -44,6 +55,14 @@ export default class Dash extends React.Component {
             onChange={this.handleChange}
             value={formatBid(this.state.newAuction.minBid)}
           />
+          Length:
+          <input
+            type="text"
+            name="length"
+            placeholder="Auction Length (0:00)"
+            onChange={this.handleChange}
+            value={this.state.newAuction.length}
+          />
           <button type="submit" >Submit</button>
         </form>
         <button
@@ -59,6 +78,9 @@ export default class Dash extends React.Component {
     if (name === 'minBid') {
       val = formatBid(val, 'num');
     }
+    if (name === 'length') {
+      val = formatTime.getLength(val);
+    }
     const newAuction = this.state.newAuction;
     newAuction[name] = val;
     this.setState({ newAuction });
@@ -68,8 +90,8 @@ export default class Dash extends React.Component {
     e.preventDefault();
     axios.post('/api/auctions', this.state.newAuction)
       .then((res) => {
-        console.log(res);
         this.setState({ creatingAuction: false });
+        this.socket.emit('auction list change');
       });
   }
 

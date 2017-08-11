@@ -12,6 +12,9 @@ exports.findUsers = query => findUsers(query);
 const findAuctions = promisify(Auction.find.bind(Auction));
 exports.findAuctions = query => findAuctions(query);
 
+const removeAuction = promisify(Auction.remove.bind(Auction));
+exports.removeAuction = query => removeAuction(query);
+
 exports.storeBid = (bidObj) => {
   exports.findAuctions({ _id: bidObj.id })
     .then((auctions) => {

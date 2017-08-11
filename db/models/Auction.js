@@ -6,6 +6,8 @@ const AuctionSchema = mongoose.Schema({
   name: String,
   minBid: Number,
   bids: [],
+  end: { type: Number, default: Date.now() + 3600000 },
+  start: { type: Number, default: Date.now() },
 });
 
 module.exports = mongoose.model('Auction', AuctionSchema);

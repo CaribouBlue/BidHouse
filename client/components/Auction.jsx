@@ -1,8 +1,10 @@
 import React from 'react';
 import io from 'socket.io-client';
 import AlertContainer from 'react-alert';
+import _ from 'lodash';
 // import axios from 'axios';
 import formatBid from '../lib/formatBid';
+import formatTime from '../lib/formatTime';
 import { checkVerified, getUser } from '../lib/checkToken';
 
 export default class Auction extends React.Component {
@@ -18,6 +20,8 @@ export default class Auction extends React.Component {
       bid: '$',
       bids: [],
       highest: { amount: 'None' },
+      end: 'n/a',
+      timeLeft: '',
     };
 
     /*===============================
@@ -47,6 +51,16 @@ export default class Auction extends React.Component {
     this.checkAuth();
   }
 
+  componentDidMount() {
+    this.checkTimeLeft = setInterval(() => {
+      this.setState({ timeLeft: formatTime.fromMS(this.state.end) });
+    }, 500);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.checkTimeLeft);
+  }
+
   setStateFromLocation() {
     const state = this.props.location.state;
     this.setState({
@@ -55,6 +69,8 @@ export default class Auction extends React.Component {
       minBid: state.minBid,
       id: state.id,
       bids: state.bids,
+      end: state.end,
+      timeLeft: formatTime.fromMS(state.end),
     }, () => {
       if (this.state.bids.length > 0) this.setHighest();
     });
@@ -84,6 +100,13 @@ export default class Auction extends React.Component {
     e.preventDefault();
     const bid = formatBid(this.state.bid, 'num');
     const min = this.state.minBid;
+    if (this.state.timeLeft === 'CLOSED') {
+      this.showAlert(`This auction is closed`, {
+        time: 2000,
+        type: 'error',
+      });
+      return;
+    }
     if (bid < min) {
       this.showAlert(`Your bid is below the minimum (${formatBid(min)})`, {
         time: 2000,
@@ -113,6 +136,7 @@ export default class Auction extends React.Component {
       <div>
         <AlertContainer ref={a => this.msg = a} />
         <h1>Auction: {this.state.name}</h1>
+        <h3>Time left: {this.state.timeLeft}</h3>
         <h3>Current Highest Bid:
           {`${formatBid(this.state.highest.amount)} - ${this.state.highest.user}`}
         </h3>
@@ -135,7 +159,7 @@ export default class Auction extends React.Component {
         <h4>Bid History</h4>
         {this.state.bids.map((bid, i) => (
           <p
-            key={i}
+            key={_.uniqueId()}
           >
             {formatBid(bid.amount)}
             - {bid.user}
