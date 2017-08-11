@@ -10,7 +10,7 @@
     "webpack": "webpack --watch -new_console:b",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-server": "nodemon server/sockets.js -new_console:b",
-    "start": "node server.sockets.js"
+    "start": "node server/sockets.js"
   },
   "repository": {
     "type": "git",

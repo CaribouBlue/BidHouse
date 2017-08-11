@@ -24,15 +24,6 @@ const clientConfig = Object.assign({}, sharedConfig, {
   },
 });
 
-// const serverConfig = Object.assign({}, sharedConfig, {
-//   name: 'server',
-//   entry: './server/server.js',
-//   output: {
-//     path: path.join(__dirname, '/server-bundle'),
-//     filename: 'bundle.js',
-//   },
-// });
-
 module.exports = [
-  clientConfig, //serverConfig,
+  clientConfig,
 ];
