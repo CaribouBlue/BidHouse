@@ -55,8 +55,8 @@ export default class AuctionList extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <div className="auction-list">
+        <div className="flex-col-center" >
           <h4>Auctions:</h4>
           <ul>
             {this.state.auctions.map(auction => (
@@ -80,7 +80,7 @@ export default class AuctionList extends React.Component {
             ))}
           </ul>
         </div>
-        <div>
+        <div className="flex-col-center">
           <h4>My Auctions:</h4>
           <ul>
             {this.state.myAuctions.map(auction => (
@@ -100,7 +100,7 @@ export default class AuctionList extends React.Component {
                     },
                   }}
                 >{auction.name}</Link>
-                <button
+                <button className="warning-button"
                   onClick={this.deleteAuction.bind(this, auction._id)}
                 >Delete</button>
               </li>

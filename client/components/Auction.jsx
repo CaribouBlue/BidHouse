@@ -133,14 +133,14 @@ export default class Auction extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="flex-col-center" >
         <AlertContainer ref={a => this.msg = a} />
-        <h1>Auction: {this.state.name}</h1>
-        <h3>Time left: {this.state.timeLeft}</h3>
-        <h3>Current Highest Bid:
+        <h1 className="header">Auction: {this.state.name}</h1>
+        <h3 className="sub-header" >Time left: {this.state.timeLeft}</h3>
+        <h3 className="sub-header" >Current Highest Bid:
           {`${formatBid(this.state.highest.amount)} - ${this.state.highest.user}`}
         </h3>
-        <h5>{`Minimum Bid: ${formatBid(this.state.minBid)}`}</h5>
+        <h5 className="sub-header" >{`Minimum Bid: ${formatBid(this.state.minBid)}`}</h5>
         <form
           onSubmit={this.submitBid}
         >
@@ -156,7 +156,7 @@ export default class Auction extends React.Component {
             Submit
           </button>
         </form>
-        <h4>Bid History</h4>
+        <h4 className="sub-header" >Bid History</h4>
         {this.state.bids.map((bid, i) => (
           <p
             key={_.uniqueId()}

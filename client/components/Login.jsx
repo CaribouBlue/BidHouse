@@ -38,8 +38,8 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Login</h3>
+      <div className="flex-col-center" >
+        <h3 className="sub-header">Login</h3>
         <form
           onSubmit={this.handleSubmit}
         >

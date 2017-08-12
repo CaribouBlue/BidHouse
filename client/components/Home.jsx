@@ -32,8 +32,8 @@ export default class Home extends React.Component {
   render() {
     return (
       <Router>
-        <div>
-          <h1>WELCOME TO AUCTION HOUSE</h1>
+        <div className="flex-col" >
+          <h1 className="header" >Welcome to BidHouse</h1>
           <Route
             path="/app/home/login"
             render={props => (<Login

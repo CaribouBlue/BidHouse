@@ -35,7 +35,7 @@ export default class Dash extends React.Component {
 
   getNewAuctionForm() {
     return (
-      <div>
+      <div className="flex-col-center">
         <form
           onSubmit={this.createAuction}
         >
@@ -102,13 +102,13 @@ export default class Dash extends React.Component {
     return (
       <button
         onClick={() => this.setState({ creatingAuction: true })}
-      >Create New Auction</button>
+      >New Auction</button>
     );
   }
 
   render() {
     return (
-      <div>
+      <div className="flex-col-center">
         {this.renderNewAuctionForm()}
         <AuctionList />
       </div>

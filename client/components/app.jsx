@@ -17,7 +17,7 @@ export default class App extends React.Component {
       <Router
         forceRefresh={false}
       >
-        <div>
+        <div className="flex-col-center">
           <Route
             path="/app/"
             component={MenuBar}
