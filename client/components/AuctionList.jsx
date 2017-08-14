@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import io from 'socket.io-client';
 import { getUser } from '../lib/checkToken';
+import { fromMS } from '../lib/formatTime';
 
 export default class AuctionList extends React.Component {
   constructor(props) {
@@ -59,13 +60,13 @@ export default class AuctionList extends React.Component {
         <div className="flex-col-center" >
           <h4 className="sub-header">Auctions:</h4>
           <ul className="auction-list">
-            {this.state.auctions.map(auction => (
+            {this.state.auctions.sort((a, b) => b.end - a.end).map(auction => (
               <li
                 className="auction-li"
                 key={_.uniqueId()}
               >
                 <Link
-                  className="link"
+                  className={fromMS(auction.end) === 'CLOSED' ? 'link-closed' : 'link'}
                   to={{
                     pathname: '/app/auction',
                     state: {
@@ -91,7 +92,7 @@ export default class AuctionList extends React.Component {
                 key={_.uniqueId()}
               >
                 <Link
-                  className="link"
+                  className={fromMS(auction.end) === 'CLOSED' ? 'link-closed' : 'link'}
                   to={{
                     pathname: '/app/auction',
                     state: {

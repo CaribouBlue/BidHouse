@@ -202,3 +202,16 @@ input {
 	margin: 8px;
 }
 
+.link-closed {
+	@extend .link;
+	background-color: pink;
+}
+
+.link-closed:hover {
+	background-color: white;
+}
+
+.link-closed:active {
+	border: 1px white solid;
+}
+

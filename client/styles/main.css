@@ -191,7 +191,7 @@ button, a, .button, .menu-button {
   background-color: #546B7D;
   color: white; }
 
-.link {
+.link, .link-closed {
   padding: 5px;
   margin: 5px; }
 
@@ -225,5 +225,14 @@ button:focus, a:focus {
 
 input {
   margin: 8px; }
+
+.link-closed {
+  background-color: pink; }
+
+.link-closed:hover {
+  background-color: white; }
+
+.link-closed:active {
+  border: 1px white solid; }
 
 /*# sourceMappingURL=main.css.map */

@@ -3,6 +3,11 @@ import React from 'react';
 export default () => (
   <div className="flex-col-center">
     <h1 className="header">About BidHouse</h1>
+    <button
+      onClick={() => {
+        window.location.assign('https://github.com/CaribouBlue/BidHouse');
+      }}
+    >Github</button>
     <p className="sub-header">Tech Stack</p>
     <div className="tech-stack-container">
       <img alt="" src="https://perlmaven.com/img/mongodb-logo.png" />

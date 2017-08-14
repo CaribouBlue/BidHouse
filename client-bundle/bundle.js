@@ -53030,6 +53030,8 @@ var _socket2 = _interopRequireDefault(_socket);
 
 var _checkToken = __webpack_require__(34);
 
+var _formatTime = __webpack_require__(137);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53115,7 +53117,9 @@ var AuctionList = function (_React$Component) {
           _react2.default.createElement(
             'ul',
             { className: 'auction-list' },
-            this.state.auctions.map(function (auction) {
+            this.state.auctions.sort(function (a, b) {
+              return b.end - a.end;
+            }).map(function (auction) {
               return _react2.default.createElement(
                 'li',
                 {
@@ -53125,7 +53129,7 @@ var AuctionList = function (_React$Component) {
                 _react2.default.createElement(
                   _reactRouterDom.Link,
                   {
-                    className: 'link',
+                    className: (0, _formatTime.fromMS)(auction.end) === 'CLOSED' ? 'link-closed' : 'link',
                     to: {
                       pathname: '/app/auction',
                       state: {
@@ -53165,7 +53169,7 @@ var AuctionList = function (_React$Component) {
                 _react2.default.createElement(
                   _reactRouterDom.Link,
                   {
-                    className: 'link',
+                    className: (0, _formatTime.fromMS)(auction.end) === 'CLOSED' ? 'link-closed' : 'link',
                     to: {
                       pathname: '/app/auction',
                       state: {
@@ -53225,6 +53229,15 @@ exports.default = function () {
       "h1",
       { className: "header" },
       "About BidHouse"
+    ),
+    _react2.default.createElement(
+      "button",
+      {
+        onClick: function onClick() {
+          window.location.assign('https://github.com/CaribouBlue/BidHouse');
+        }
+      },
+      "Github"
     ),
     _react2.default.createElement(
       "p",
