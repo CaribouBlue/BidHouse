@@ -2,6 +2,8 @@
 
 BidHouse is a lightweight, real-time, and customizable auction builder that allows users to easily create auctions for their unique applications.
 
+**Checkout a live example here -> [BidHouse](http://bidhouse.herokuapp.com).**
+
 ## Getting Started
 
 These instructions will set you up with a copy of BidHouse on your local machine. This is for development and testing purposes only.
@@ -14,21 +16,21 @@ Download these dependencies before installing BidHouse on your local machine.
 
 ### Installing
 
-**Download The Repo**
+**1. Download The Repo**
 
-To get this project started on your local machine, git clone or download this repo.
+* To get this project started on your local machine, git clone or download this repo.
 
-**Download Dependencies**
+**2. Download Dependencies**
 
-Then run the console command "npm install" from the root directory.
+* Then run the console command "npm install" from the root directory.
 
-**Start The Application**
+**3. Start The Application**
 
-Once all dependencies are downloaded, run the command "npm start".
+* Once all dependencies are downloaded, run the command "npm start".
 
-**Navigate to Local Application Instance**
+**4. Navigate to Local Application Instance**
 
-With the server running, navigate to the URL "http://localhost:8000" to use the app.
+* With the server running, navigate to the URL "http://localhost:8000" to use the app.
 
 **Example**
 
@@ -46,11 +48,11 @@ http://localhost:8000<br />
 
 ## Built With
 
-...
+[Tech Stack](http://bidhouse.herokuapp.com/app/about)
 
 ## Authors
 
-* **Alec Draymore** - *Full Stack* - [CaribouBlue](https://github.com/CaribouBlue)
+* **Alec Draymore** - [CaribouBlue](https://github.com/CaribouBlue)
 
 ## License
 
