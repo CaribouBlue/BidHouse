@@ -32,17 +32,17 @@ With the server running, navigate to the URL "http://localhost:8000" to use the 
 
 **Example**
 
-Open console, enter commands ...__
-    ▼__
-git clone https://github.com/CaribouBlue/BidHouse.git__
-    ▼__
-npm install__
-    ▼__
-npm start__
-    ▼__
-Open browser, navigate to ...__
-    ▼__
-http://localhost:8000__
+Open console, enter commands ...<br />
+    ▼<br />
+git clone https://github.com/CaribouBlue/BidHouse.git<br />
+    ▼<br />
+npm install<br />
+    ▼<br />
+npm start<br />
+    ▼<br />
+Open browser, navigate to ...<br />
+    ▼<br />
+http://localhost:8000<br />
 
 ## Built With
 
