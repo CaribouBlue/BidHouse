@@ -48,9 +48,10 @@ http://localhost:8000<br />
 
 ## Built With
 
-###[Tech Stack](http://bidhouse.herokuapp.com/app/about)
+[Tech Stack](http://bidhouse.herokuapp.com/app/about)
 
-![Tech Stack](https://user-images.githubusercontent.com/20893928/29292162-15f3ea74-8114-11e7-93db-a4f9c7417a00.png)
+![Tech Stack](https://user-images.githubusercontent.com/20893928/29292275-8f3f7ff6-8114-11e7-9e9a-33e57634cc1b.png)
+
 
 ## Authors
 
