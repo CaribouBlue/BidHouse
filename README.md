@@ -32,7 +32,7 @@ Download these dependencies before installing BidHouse on your local machine.
 
 * With the server running, navigate to the URL "http://localhost:8000" to use the app.
 
-**Example**
+**Example Install**
 
 Open console, enter commands ...<br />
     ▼<br />
@@ -49,6 +49,8 @@ http://localhost:8000<br />
 ## Built With
 
 [Tech Stack](http://bidhouse.herokuapp.com/app/about)
+
+![Tech Stack](https://user-images.githubusercontent.com/20893928/29292162-15f3ea74-8114-11e7-93db-a4f9c7417a00.png)
 
 ## Authors
 
