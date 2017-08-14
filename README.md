@@ -14,9 +14,9 @@ Download these dependencies before installing BidHouse on your local machine.
 
 * [Nodejs](https://nodejs.org/en/download/) v6.11.2+
 
-### Installing
+### How to Install
 
-**1. Download The Repo**
+**1. Download the Repo**
 
 * To get this project started on your local machine, git clone or download this repo.
 
@@ -24,7 +24,7 @@ Download these dependencies before installing BidHouse on your local machine.
 
 * Then run the console command "npm install" from the root directory.
 
-**3. Start The Application**
+**3. Start the Application**
 
 * Once all dependencies are downloaded, run the command "npm start".
 
@@ -32,7 +32,7 @@ Download these dependencies before installing BidHouse on your local machine.
 
 * With the server running, navigate to the URL "http://localhost:8000" to use the app.
 
-**Example Install**
+### Example Install
 
 Open console, enter commands ...<br />
     ▼<br />
@@ -51,6 +51,7 @@ http://localhost:8000<br />
 [Tech Stack](http://bidhouse.herokuapp.com/app/about)
 
 ![Tech Stack](https://user-images.githubusercontent.com/20893928/29292275-8f3f7ff6-8114-11e7-9e9a-33e57634cc1b.png)
+
 
 
 ## Authors
