@@ -57,13 +57,15 @@ export default class AuctionList extends React.Component {
     return (
       <div className="auction-list">
         <div className="flex-col-center" >
-          <h4>Auctions:</h4>
+          <h4 className="sub-header">Auctions:</h4>
           <ul>
             {this.state.auctions.map(auction => (
               <li
+                className="link"
                 key={_.uniqueId()}
               >
                 <Link
+                  className="link"
                   to={{
                     pathname: '/app/auction',
                     state: {
@@ -81,13 +83,14 @@ export default class AuctionList extends React.Component {
           </ul>
         </div>
         <div className="flex-col-center">
-          <h4>My Auctions:</h4>
+          <h4 className="sub-header">My Auctions:</h4>
           <ul>
             {this.state.myAuctions.map(auction => (
               <li
                 key={_.uniqueId()}
               >
                 <Link
+                  className="link"
                   to={{
                     pathname: '/app/auction',
                     state: {

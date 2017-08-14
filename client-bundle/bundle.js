@@ -48552,7 +48552,7 @@ exports.default = function (props) {
     ),
     _react2.default.createElement(
       _reactRouterDom.Link,
-      { to: '/app/about' },
+      { className: 'link', to: '/app/about' },
       'About'
     ),
     displayLogout()
@@ -53085,7 +53085,7 @@ var AuctionList = function (_React$Component) {
           { className: 'flex-col-center' },
           _react2.default.createElement(
             'h4',
-            null,
+            { className: 'sub-header' },
             'Auctions:'
           ),
           _react2.default.createElement(
@@ -53095,11 +53095,13 @@ var AuctionList = function (_React$Component) {
               return _react2.default.createElement(
                 'li',
                 {
+                  className: 'link',
                   key: _lodash2.default.uniqueId()
                 },
                 _react2.default.createElement(
                   _reactRouterDom.Link,
                   {
+                    className: 'link',
                     to: {
                       pathname: '/app/auction',
                       state: {
@@ -53123,7 +53125,7 @@ var AuctionList = function (_React$Component) {
           { className: 'flex-col-center' },
           _react2.default.createElement(
             'h4',
-            null,
+            { className: 'sub-header' },
             'My Auctions:'
           ),
           _react2.default.createElement(
@@ -53138,6 +53140,7 @@ var AuctionList = function (_React$Component) {
                 _react2.default.createElement(
                   _reactRouterDom.Link,
                   {
+                    className: 'link',
                     to: {
                       pathname: '/app/auction',
                       state: {
@@ -53262,7 +53265,7 @@ var Auction = function (_React$Component) {
       user: (0, _checkToken.getUser)(),
       bid: '$',
       bids: [],
-      highest: { amount: 'None' },
+      highest: { amount: 'none', user: 'none' },
       end: 'n/a',
       timeLeft: ''
     };
@@ -53414,7 +53417,11 @@ var Auction = function (_React$Component) {
           'h3',
           { className: 'sub-header' },
           'Current Highest Bid:',
-          (0, _formatBid2.default)(this.state.highest.amount) + ' - ' + this.state.highest.user
+          _react2.default.createElement(
+            'span',
+            { className: 'gold-accent' },
+            ' ' + (0, _formatBid2.default)(this.state.highest.amount) + ' - ' + this.state.highest.user
+          )
         ),
         _react2.default.createElement(
           'h5',

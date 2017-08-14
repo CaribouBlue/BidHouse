@@ -19,7 +19,7 @@ export default class Auction extends React.Component {
       user: getUser(),
       bid: '$',
       bids: [],
-      highest: { amount: 'None' },
+      highest: { amount: 'none', user: 'none' },
       end: 'n/a',
       timeLeft: '',
     };
@@ -138,7 +138,9 @@ export default class Auction extends React.Component {
         <h1 className="header">Auction: {this.state.name}</h1>
         <h3 className="sub-header" >Time left: {this.state.timeLeft}</h3>
         <h3 className="sub-header" >Current Highest Bid:
-          {`${formatBid(this.state.highest.amount)} - ${this.state.highest.user}`}
+          <span className="gold-accent">
+            {` ${formatBid(this.state.highest.amount)} - ${this.state.highest.user}`}
+          </span>
         </h3>
         <h5 className="sub-header" >{`Minimum Bid: ${formatBid(this.state.minBid)}`}</h5>
         <form

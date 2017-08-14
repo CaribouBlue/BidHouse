@@ -106,6 +106,9 @@ a {
   font-size: 20px;
   margin: 10px; }
 
+.gold-accent {
+  text-shadow: 0px 0px 3px #d4af37; }
+
 body {
   font-family: Lato; }
 
@@ -114,13 +117,22 @@ button, a {
   padding: 5px;
   margin: 5px;
   width: 75px;
-  box-shadow: 1px 1px 2px lightgrey; }
+  box-shadow: 1px 1px 2px lightgrey;
+  border-radius: 10px;
+  text-align: center; }
+
+.link {
+  padding: 5px;
+  margin: 5px; }
 
 .warning-button {
   color: darkred; }
 
 button:hover, a:hover {
   box-shadow: 0px 0px 0px white; }
+
+button:focus, a:focus {
+  outline: 0; }
 
 .warning-button:hover {
   background-color: pink; }

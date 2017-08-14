@@ -20,7 +20,7 @@ export default (props) => {
   return (
     <div className="menu-bar" >
       <Link to="/app" >Home</Link>
-      <Link to="/app/about" >About</Link>
+      <Link className="link" to="/app/about" >About</Link>
       {displayLogout()}
     </div>
   );
