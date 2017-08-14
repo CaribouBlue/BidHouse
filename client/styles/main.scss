@@ -1,5 +1,10 @@
 @import 'reset';
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Lato|Saira|Muli');
+
+body {
+	background-color: #EAEEF1;
+	font-family: Lato;
+}
 
 .flex-row {
 	display: flex;
@@ -25,20 +30,53 @@
 .menu-bar {
 	@extend .flex-row-space;
 	margin-bottom: 20px;
-	margin-top: 10px;
-	width: 200px;
+	width: 100vw;
+	height: 50px;
+}
+
+.tech-stack-container {
+	@extend .flex-row-space;
+	width: 700px;
+	flex-wrap: wrap;
+}
+
+img {
+	width: 128px;
+	height: 128px;
+	margin: 10px;
+}
+
+.dash-auction-container {
+	@extend .flex-col-center;
+	width: 100%;
+	max-width: 900px;
+}
+
+.auction-lists {
+	@extend .flex-row-space;
+	margin-top: 30px;
+	align-items: start;
+	width: 100%;
 }
 
 .auction-list {
+	width: 45vw;
+	max-width: 300px;
+	min-height: 500px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: rgba(255, 250, 250, 0.3);
+	border: 0.1px solid white;
+}
+
+.auction-li {
 	@extend .flex-row-space;
-	width: 500px;
-	margin-top: 30px;
-	align-items: start;
 }
 
 .header {
 	font-size: 30px;
 	margin-bottom: 20px;
+	font-family: Saira;
 }
 
 .sub-header {
@@ -46,26 +84,79 @@
 	margin: 10px;
 }
 
-.gold-accent {
-	text-shadow: 0px 0px 3px #d4af37;
+.auction-prop-header {
+	font-weight: bold;
+	margin-bottom: 5px;
 }
 
-body {
-	font-family: Lato;
+.auction-prop {
+	@extend .flex-row;
+	justify-content: center;
+	align-items: center;
+	background-color: #F8FCFF;
+	border: 1px grey solid;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	width: 300px;
+	margin-bottom: 20px;
+	//font-weight: bold;
+	font-size: 20px;
+	font-family: Muli;
+}
+
+.gold-accent {
+	text-shadow: 0px 0px 2px #d4af37;
+}
+
+.red-accent {
+	text-shadow: 0px 0px 2px #871614;
+}
+
+.green-accent {
+	text-shadow: 0px 0px 2px darkgreen;
 }
 
 form{
 	@extend .flex-col-center;
 }
 
-button, a {
+button, a, .button {
 	border: 0.1px black solid;
-	padding: 5px;
+	padding: 2px;
 	margin: 5px;
 	width: 75px;
 	box-shadow: 1px 1px 2px lightgrey;
 	border-radius: 10px;
 	text-align: center;
+	font-size: 14px;
+	background-color: white;
+	color: black;
+}
+
+.menu-button {
+	@extend .button;
+	@extend .flex-col-center;
+	box-shadow: 0px 0px 2px;
+	border-radius: 0px;
+	height: 100%;
+	width: 100%;
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+	background-color: #82A6C2;
+	color: whitesmoke;
+	font-weight: bold;
+}
+
+.menu-button:hover {
+	background-color: #6C8AA1;
+}
+
+.menu-button:active {
+	background-color: #546B7D;
+	color: white;
 }
 
  .link {
@@ -78,7 +169,17 @@ button, a {
 }
 
 button:hover, a:hover {
-	box-shadow: 0px 0px 0px white;
+	box-shadow: 0px 0px 0px;
+	border: 0.1px white solid;
+	background-color: whtiesmoke;
+	color: #93BCDB;
+}
+
+button:active, a:active {
+	box-shadow: 0px 0px 0px;
+	background-color: lightgrey;
+	color: darkgrey;
+	border: 0.1px lightgrey solid;
 }
 
 button:focus, a:focus {
@@ -87,8 +188,17 @@ button:focus, a:focus {
 
 .warning-button:hover {
 	background-color: pink;
+	color: darkred;
+	border: 0.1px pink solid;
+}
+
+.warning-button:active {
+	background-color: darkred;
+	color: pink;
+	border: 0.1px darkred solid;
 }
 
 input {
 	margin: 8px;
 }
+

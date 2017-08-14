@@ -41,7 +41,7 @@ export default class AuctionList extends React.Component {
           auction.owner === user ?
             myAuctions.push(auction) :
             auctions.push(auction);
-        })
+        });
         this.setState({ auctions, myAuctions });
       });
   }
@@ -55,13 +55,13 @@ export default class AuctionList extends React.Component {
 
   render() {
     return (
-      <div className="auction-list">
+      <div className="auction-lists">
         <div className="flex-col-center" >
           <h4 className="sub-header">Auctions:</h4>
-          <ul>
+          <ul className="auction-list">
             {this.state.auctions.map(auction => (
               <li
-                className="link"
+                className="auction-li"
                 key={_.uniqueId()}
               >
                 <Link
@@ -84,9 +84,10 @@ export default class AuctionList extends React.Component {
         </div>
         <div className="flex-col-center">
           <h4 className="sub-header">My Auctions:</h4>
-          <ul>
+          <ul className="auction-list">
             {this.state.myAuctions.map(auction => (
               <li
+                className="auction-li"
                 key={_.uniqueId()}
               >
                 <Link

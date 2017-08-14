@@ -14644,6 +14644,11 @@ var Dash = function (_React$Component) {
   }
 
   _createClass(Dash, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.checkAuth();
+    }
+  }, {
     key: 'getNewAuctionForm',
     value: function getNewAuctionForm() {
       var _this2 = this;
@@ -14698,6 +14703,16 @@ var Dash = function (_React$Component) {
       );
     }
   }, {
+    key: 'checkAuth',
+    value: function checkAuth() {
+      var verified = (0, _checkToken.checkVerified)();
+      if (verified) {
+        this.props.history.push('/app/dash');
+      } else if (this.props.location.pathname !== '/app/home/login' && this.props.location.pathname !== '/app/home/signup') {
+        this.props.history.push('/app/home/login');
+      }
+    }
+  }, {
     key: 'handleChange',
     value: function handleChange(_ref) {
       var target = _ref.target;
@@ -14748,7 +14763,7 @@ var Dash = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'flex-col-center' },
+        { className: 'dash-auction-container' },
         this.renderNewAuctionForm(),
         _react2.default.createElement(_AuctionList2.default, null)
       );
@@ -48533,6 +48548,7 @@ exports.default = function (props) {
     return _react2.default.createElement(
       'button',
       {
+        className: 'menu-button',
         onClick: function onClick() {
           localStorage.removeItem('auctionHouse');
           props.history.push('/app');
@@ -48547,13 +48563,21 @@ exports.default = function (props) {
     { className: 'menu-bar' },
     _react2.default.createElement(
       _reactRouterDom.Link,
-      { to: '/app' },
-      'Home'
+      { className: 'menu-button', to: '/app' },
+      _react2.default.createElement(
+        'p',
+        null,
+        'Home'
+      )
     ),
     _react2.default.createElement(
       _reactRouterDom.Link,
-      { className: 'link', to: '/app/about' },
-      'About'
+      { className: 'menu-button', to: '/app/about' },
+      _react2.default.createElement(
+        'p',
+        null,
+        'About'
+      )
     ),
     displayLogout()
   );
@@ -48755,11 +48779,11 @@ var Home = function (_React$Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'flex-col' },
+          { className: 'flex-col-center' },
           _react2.default.createElement(
             'h1',
             { className: 'header' },
-            'Welcome to BidHouse'
+            'BidHouse'
           ),
           _react2.default.createElement(_reactRouterDom.Route, {
             path: '/app/home/login',
@@ -48868,10 +48892,10 @@ var SignUp = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'flex-col-center' },
         _react2.default.createElement(
           'h3',
-          null,
+          { className: 'sub-header' },
           'Sign Up'
         ),
         _react2.default.createElement(
@@ -53079,7 +53103,7 @@ var AuctionList = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'auction-list' },
+        { className: 'auction-lists' },
         _react2.default.createElement(
           'div',
           { className: 'flex-col-center' },
@@ -53090,12 +53114,12 @@ var AuctionList = function (_React$Component) {
           ),
           _react2.default.createElement(
             'ul',
-            null,
+            { className: 'auction-list' },
             this.state.auctions.map(function (auction) {
               return _react2.default.createElement(
                 'li',
                 {
-                  className: 'link',
+                  className: 'auction-li',
                   key: _lodash2.default.uniqueId()
                 },
                 _react2.default.createElement(
@@ -53130,11 +53154,12 @@ var AuctionList = function (_React$Component) {
           ),
           _react2.default.createElement(
             'ul',
-            null,
+            { className: 'auction-list' },
             this.state.myAuctions.map(function (auction) {
               return _react2.default.createElement(
                 'li',
                 {
+                  className: 'auction-li',
                   key: _lodash2.default.uniqueId()
                 },
                 _react2.default.createElement(
@@ -53194,9 +53219,35 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function () {
   return _react2.default.createElement(
-    "h1",
-    { className: "header" },
-    "About BidHouse"
+    "div",
+    { className: "flex-col-center" },
+    _react2.default.createElement(
+      "h1",
+      { className: "header" },
+      "About BidHouse"
+    ),
+    _react2.default.createElement(
+      "p",
+      { className: "sub-header" },
+      "Tech Stack"
+    ),
+    _react2.default.createElement(
+      "div",
+      { className: "tech-stack-container" },
+      _react2.default.createElement("img", { alt: "", src: "https://perlmaven.com/img/mongodb-logo.png" }),
+      _react2.default.createElement("img", { alt: "", src: "data:image/png;base64,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" }),
+      _react2.default.createElement("img", { alt: "", src: "http://www.erikasland.com/static/images/mongoose.png" }),
+      _react2.default.createElement("img", { alt: "", src: "https://video-react.js.org/assets/logo.png" }),
+      _react2.default.createElement("img", { alt: "", src: "https://cdn-images-1.medium.com/max/1200/1*l0JiZHyCBXtgeMQyhBpT6g.png" }),
+      _react2.default.createElement("img", { alt: "", src: "https://camo.githubusercontent.com/f63754b8412368e820601967af6dea84312b925b/68747470733a2f2f7265616374747261696e696e672e636f6d2f72656163742d726f757465722f616e64726f69642d6368726f6d652d313434783134342e706e67" }),
+      _react2.default.createElement("img", { alt: "", src: "https://chdecultot.com/images/express-js.png" }),
+      _react2.default.createElement("img", { alt: "", src: "data:image/png;base64,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" }),
+      _react2.default.createElement("img", { alt: "", src: "https://socket.io/assets/img/favicon.png" }),
+      _react2.default.createElement("img", { alt: "", src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ4uDe-yCJkrRioKIU11BKCWaGolv8RQQxFdIAhdi32DhvyM1JnAXO6A" }),
+      _react2.default.createElement("img", { alt: "", src: "https://cdn.auth0.com/blog/jwtalgos/logo.png" }),
+      _react2.default.createElement("img", { alt: "", src: "https://pbs.twimg.com/profile_images/567000326444556290/-1wfGjNw.png" }),
+      _react2.default.createElement("img", { alt: "", src: "data:image/png;base64,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" })
+    )
   );
 };
 
@@ -53282,7 +53333,7 @@ var Auction = function (_React$Component) {
       var newBid = bidObj;
       bids.push(newBid);
       _this.setState({ bids: bids });
-      _this.setHighest();
+      _this.setHighest(true);
     });
 
     /*=====  End of sockets  ======*/
@@ -53333,10 +53384,21 @@ var Auction = function (_React$Component) {
   }, {
     key: 'setHighest',
     value: function setHighest() {
+      var socketTrigger = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
       var highest = this.state.bids.reduce(function (max, bidObj) {
         return max.amount >= bidObj.amount ? max : bidObj;
       });
+      if (socketTrigger) this.alertNewHighest(highest);
       this.setState({ highest: highest });
+    }
+  }, {
+    key: 'alertNewHighest',
+    value: function alertNewHighest(highest) {
+      console.log('here');
+      if (highest.amount !== this.state.highest.amount) {
+        this.showAlert('New highest bid of ' + (0, _formatBid2.default)(highest.amount) + ', posted by ' + highest.user, { time: 2000, type: 'info' });
+      }
     }
   }, {
     key: 'checkAuth',
@@ -53374,6 +53436,13 @@ var Auction = function (_React$Component) {
         });
         return;
       }
+      if (bid <= this.state.highest.amount) {
+        this.showAlert('Your bid must be higher than the current winning bid (' + (0, _formatBid2.default)(this.state.highest.amount) + ')', {
+          time: 2000,
+          type: 'error'
+        });
+        return;
+      }
       this.socket.emit('bid submit', {
         amount: bid,
         id: this.state.id,
@@ -53388,7 +53457,7 @@ var Auction = function (_React$Component) {
   }, {
     key: 'showAlert',
     value: function showAlert(text, options) {
-      this.msg.show(text, options);
+      this.msg.show(text, Object.assign({ position: 'top left' }, options));
     }
   }, {
     key: 'render',
@@ -53408,25 +53477,40 @@ var Auction = function (_React$Component) {
           this.state.name
         ),
         _react2.default.createElement(
-          'h3',
-          { className: 'sub-header' },
-          'Time left: ',
-          this.state.timeLeft
+          'p',
+          { className: 'auction-prop-header' },
+          'Time left:'
         ),
         _react2.default.createElement(
           'h3',
-          { className: 'sub-header' },
-          'Current Highest Bid:',
+          { className: 'auction-prop' },
+          '' + this.state.timeLeft
+        ),
+        _react2.default.createElement(
+          'p',
+          { className: 'auction-prop-header' },
+          'Current Highest Bid:'
+        ),
+        _react2.default.createElement(
+          'h3',
+          { className: 'auction-prop' },
           _react2.default.createElement(
             'span',
-            { className: 'gold-accent' },
+            {
+              className: this.state.user === this.state.owner ? 'gold-accent' : this.state.highest.user === this.state.user ? 'green-accent' : 'red-accent'
+            },
             ' ' + (0, _formatBid2.default)(this.state.highest.amount) + ' - ' + this.state.highest.user
           )
         ),
         _react2.default.createElement(
+          'p',
+          { className: 'auction-prop-header' },
+          'Minimum Bid:'
+        ),
+        _react2.default.createElement(
           'h5',
-          { className: 'sub-header' },
-          'Minimum Bid: ' + (0, _formatBid2.default)(this.state.minBid)
+          { className: 'auction-prop' },
+          '' + (0, _formatBid2.default)(this.state.minBid)
         ),
         _react2.default.createElement(
           'form',
@@ -53452,7 +53536,9 @@ var Auction = function (_React$Component) {
           { className: 'sub-header' },
           'Bid History'
         ),
-        this.state.bids.map(function (bid, i) {
+        this.state.bids.sort(function (a, b) {
+          return b.amount - a.amount;
+        }).map(function (bid) {
           return _react2.default.createElement(
             'p',
             {

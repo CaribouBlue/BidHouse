@@ -16,7 +16,8 @@ app.use('/app/static', express.static('client-bundle'));
 app.use('/api', router);
 
 app.get('/app/*', (req, res) => {
-  res.redirect(`/app#${req.params['0']}`);
+  if (req.params['0'] === 'auction') res.redirect('/app#dash');
+  else res.redirect(`/app#${req.params['0']}`);
 });
 
 app.get('*', (req, res) => {

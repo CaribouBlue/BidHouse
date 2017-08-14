@@ -44,8 +44,8 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Sign Up</h3>
+      <div className="flex-col-center">
+        <h3 className="sub-header">Sign Up</h3>
         <form
           onSubmit={this.handleSubmit}
         >

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
 import AuctionList from './AuctionList';
-import { getUser } from '../lib/checkToken';
+import { getUser, checkVerified } from '../lib/checkToken';
 import formatBid from '../lib/formatBid';
 import formatTime from '../lib/formatTime';
 
@@ -31,6 +31,10 @@ export default class Dash extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.getNewAuctionForm = this.getNewAuctionForm.bind(this);
     this.createAuction = this.createAuction.bind(this);
+  }
+
+  componentWillMount() {
+    this.checkAuth();
   }
 
   getNewAuctionForm() {
@@ -72,6 +76,15 @@ export default class Dash extends React.Component {
     );
   }
 
+  checkAuth() {
+    const verified = checkVerified();
+    if (verified) {
+      this.props.history.push('/app/dash');
+    } else if (this.props.location.pathname !== '/app/home/login' && this.props.location.pathname !== '/app/home/signup') {
+      this.props.history.push('/app/home/login');
+    }
+  }
+
   handleChange({ target }) {
     const name = target.name;
     let val = target.value;
@@ -108,7 +121,7 @@ export default class Dash extends React.Component {
 
   render() {
     return (
-      <div className="flex-col-center">
+      <div className="dash-auction-container">
         {this.renderNewAuctionForm()}
         <AuctionList />
       </div>

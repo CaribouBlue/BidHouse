@@ -9,6 +9,7 @@ export default (props) => {
     if (!checkVerified()) return '';
     return (
       <button
+        className="menu-button"
         onClick={() => {
           localStorage.removeItem('auctionHouse');
           props.history.push('/app');
@@ -19,8 +20,8 @@ export default (props) => {
 
   return (
     <div className="menu-bar" >
-      <Link to="/app" >Home</Link>
-      <Link className="link" to="/app/about" >About</Link>
+      <Link className="menu-button" to="/app" ><p>Home</p></Link>
+      <Link className="menu-button" to="/app/about" ><p>About</p></Link>
       {displayLogout()}
     </div>
   );

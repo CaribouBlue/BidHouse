@@ -2,7 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-@import url("https://fonts.googleapis.com/css?family=Lato");
+@import url("https://fonts.googleapis.com/css?family=Lato|Saira|Muli");
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -74,52 +74,122 @@ button::-moz-focus-inner {
 a {
   color: black; }
 
-.flex-row, .flex-col, .flex-col-center, form, .flex-row-space, .menu-bar, .auction-list {
+body {
+  background-color: #EAEEF1;
+  font-family: Lato; }
+
+.flex-row, .flex-col, .flex-col-center, .dash-auction-container, form, .menu-button, .flex-row-space, .menu-bar, .tech-stack-container, .auction-lists, .auction-li, .auction-prop {
   display: flex; }
 
-.flex-col, .flex-col-center, form {
+.flex-col, .flex-col-center, .dash-auction-container, form, .menu-button {
   flex-direction: column; }
 
-.flex-row-space, .menu-bar, .auction-list {
+.flex-row-space, .menu-bar, .tech-stack-container, .auction-lists, .auction-li {
   justify-content: space-around;
   align-items: center; }
 
-.flex-col-center, form {
+.flex-col-center, .dash-auction-container, form, .menu-button {
   justify-content: center;
   align-items: center; }
 
 .menu-bar {
   margin-bottom: 20px;
-  margin-top: 10px;
-  width: 200px; }
+  width: 100vw;
+  height: 50px; }
+
+.tech-stack-container {
+  width: 700px;
+  flex-wrap: wrap; }
+
+img {
+  width: 128px;
+  height: 128px;
+  margin: 10px; }
+
+.dash-auction-container {
+  width: 100%;
+  max-width: 900px; }
+
+.auction-lists {
+  margin-top: 30px;
+  align-items: start;
+  width: 100%; }
 
 .auction-list {
-  width: 500px;
-  margin-top: 30px;
-  align-items: start; }
+  width: 45vw;
+  max-width: 300px;
+  min-height: 500px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(255, 250, 250, 0.3);
+  border: 0.1px solid white; }
 
 .header {
   font-size: 30px;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  font-family: Saira; }
 
 .sub-header {
   font-size: 20px;
   margin: 10px; }
 
+.auction-prop-header {
+  font-weight: bold;
+  margin-bottom: 5px; }
+
+.auction-prop {
+  justify-content: center;
+  align-items: center;
+  background-color: #F8FCFF;
+  border: 1px grey solid;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  width: 300px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-family: Muli; }
+
 .gold-accent {
-  text-shadow: 0px 0px 3px #d4af37; }
+  text-shadow: 0px 0px 2px #d4af37; }
 
-body {
-  font-family: Lato; }
+.red-accent {
+  text-shadow: 0px 0px 2px #871614; }
 
-button, a {
+.green-accent {
+  text-shadow: 0px 0px 2px darkgreen; }
+
+button, a, .button, .menu-button {
   border: 0.1px black solid;
-  padding: 5px;
+  padding: 2px;
   margin: 5px;
   width: 75px;
   box-shadow: 1px 1px 2px lightgrey;
   border-radius: 10px;
-  text-align: center; }
+  text-align: center;
+  font-size: 14px;
+  background-color: white;
+  color: black; }
+
+.menu-button {
+  box-shadow: 0px 0px 2px;
+  border-radius: 0px;
+  height: 100%;
+  width: 100%;
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  background-color: #82A6C2;
+  color: whitesmoke;
+  font-weight: bold; }
+
+.menu-button:hover {
+  background-color: #6C8AA1; }
+
+.menu-button:active {
+  background-color: #546B7D;
+  color: white; }
 
 .link {
   padding: 5px;
@@ -129,13 +199,29 @@ button, a {
   color: darkred; }
 
 button:hover, a:hover {
-  box-shadow: 0px 0px 0px white; }
+  box-shadow: 0px 0px 0px;
+  border: 0.1px white solid;
+  background-color: whtiesmoke;
+  color: #93BCDB; }
+
+button:active, a:active {
+  box-shadow: 0px 0px 0px;
+  background-color: lightgrey;
+  color: darkgrey;
+  border: 0.1px lightgrey solid; }
 
 button:focus, a:focus {
   outline: 0; }
 
 .warning-button:hover {
-  background-color: pink; }
+  background-color: pink;
+  color: darkred;
+  border: 0.1px pink solid; }
+
+.warning-button:active {
+  background-color: darkred;
+  color: pink;
+  border: 0.1px darkred solid; }
 
 input {
   margin: 8px; }

@@ -36,7 +36,7 @@ export default class Auction extends React.Component {
       const newBid = bidObj;
       bids.push(newBid);
       this.setState({ bids });
-      this.setHighest();
+      this.setHighest(true);
     });
 
     /*=====  End of sockets  ======*/
@@ -76,11 +76,22 @@ export default class Auction extends React.Component {
     });
   }
 
-  setHighest() {
+  setHighest(socketTrigger = false) {
     const highest = this.state.bids.reduce((max, bidObj) =>
       (max.amount >= bidObj.amount ? max : bidObj),
     );
+    if (socketTrigger) this.alertNewHighest(highest);
     this.setState({ highest });
+  }
+
+  alertNewHighest(highest) {
+    console.log('here');
+    if (highest.amount !== this.state.highest.amount) {
+      this.showAlert(
+        `New highest bid of ${formatBid(highest.amount)}, posted by ${highest.user}`,
+        { time: 2000, type: 'info' },
+      );
+    }
   }
 
   checkAuth() {
@@ -101,7 +112,7 @@ export default class Auction extends React.Component {
     const bid = formatBid(this.state.bid, 'num');
     const min = this.state.minBid;
     if (this.state.timeLeft === 'CLOSED') {
-      this.showAlert(`This auction is closed`, {
+      this.showAlert('This auction is closed', {
         time: 2000,
         type: 'error',
       });
@@ -109,6 +120,13 @@ export default class Auction extends React.Component {
     }
     if (bid < min) {
       this.showAlert(`Your bid is below the minimum (${formatBid(min)})`, {
+        time: 2000,
+        type: 'error',
+      });
+      return;
+    }
+    if (bid <= this.state.highest.amount) {
+      this.showAlert(`Your bid must be higher than the current winning bid (${formatBid(this.state.highest.amount)})`, {
         time: 2000,
         type: 'error',
       });
@@ -127,7 +145,7 @@ export default class Auction extends React.Component {
   }
 
   showAlert(text, options) {
-    this.msg.show(text, options);
+    this.msg.show(text, Object.assign({ position: 'top left' }, options));
   }
 
 
@@ -136,13 +154,23 @@ export default class Auction extends React.Component {
       <div className="flex-col-center" >
         <AlertContainer ref={a => this.msg = a} />
         <h1 className="header">Auction: {this.state.name}</h1>
-        <h3 className="sub-header" >Time left: {this.state.timeLeft}</h3>
-        <h3 className="sub-header" >Current Highest Bid:
-          <span className="gold-accent">
+        <p className="auction-prop-header">Time left:</p>
+        <h3 className="auction-prop" >
+          {`${this.state.timeLeft}`}
+        </h3>
+        <p className="auction-prop-header">Current Highest Bid:</p>
+        <h3 className="auction-prop" >
+          <span
+            className={this.state.user === this.state.owner ? 'gold-accent' :
+              (this.state.highest.user === this.state.user ? 'green-accent' : 'red-accent')}
+          >
             {` ${formatBid(this.state.highest.amount)} - ${this.state.highest.user}`}
           </span>
         </h3>
-        <h5 className="sub-header" >{`Minimum Bid: ${formatBid(this.state.minBid)}`}</h5>
+        <p className="auction-prop-header">Minimum Bid:</p>
+        <h5 className="auction-prop" >
+          {`${formatBid(this.state.minBid)}`}
+        </h5>
         <form
           onSubmit={this.submitBid}
         >
@@ -159,7 +187,7 @@ export default class Auction extends React.Component {
           </button>
         </form>
         <h4 className="sub-header" >Bid History</h4>
-        {this.state.bids.map((bid, i) => (
+        {this.state.bids.sort((a, b) => b.amount - a.amount).map(bid => (
           <p
             key={_.uniqueId()}
           >
